@@ -2,6 +2,7 @@
 (function () {
   let DB;
 
+  // antes que nada cargamos todo el contenido primero
   document.addEventListener("DOMContentLoaded", () => {
     crearDB();
   });
@@ -10,14 +11,17 @@
   function crearDB() {
     const crearDB = window.indexedDB.open("crm", 1);
 
+    // si hay un error informar
     crearDB.onerror = function () {
       console.log("hubo un error");
     };
 
+    // si no hay errores asignamos a nuestra variable global DB
     crearDB.onsuccess = function () {
       DB = crearDB.result;
     };
 
+    // creamos las tablas
     crearDB.onupgradeneeded = function (e) {
       const db = e.target.result;
 
@@ -27,7 +31,7 @@
       });
 
       objectStore.createIndex("nombre", "nombre", { unique: false });
-      objectStore.createIndex("email", "email", { unique: false });
+      objectStore.createIndex("email", "email", { unique: true });
       objectStore.createIndex("telefono", "telefono", { unique: false });
       objectStore.createIndex("empresa", "empresa", { unique: false });
       objectStore.createIndex("id", "id", { unique: false });
