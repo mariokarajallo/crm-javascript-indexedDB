@@ -22,6 +22,17 @@
   function validarCliente(e) {
     e.preventDefault();
 
-    console.log("validando");
+    //leer todos los inputs del formulario
+    const nombre = document.querySelector("#nombre").value;
+    const email = document.querySelector("#email").value;
+    const telefono = document.querySelector("#telefono").value;
+    const empresa = document.querySelector("#empresa").value;
+
+    //validar el formulario que no este vacio al crear un nuevo cliente
+    if (nombre === "" || email === "" || telefono === "" || empresa === "") {
+      imprimirAlerta("Todos los campos son obligatorios", "error");
+
+      return;
+    }
   }
 })();
