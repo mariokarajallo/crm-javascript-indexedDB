@@ -5,8 +5,14 @@
   const emailInput = document.querySelector("#email");
   const telefonoInput = document.querySelector("#telefono");
   const empresaInput = document.querySelector("#empresa");
+
+  const formulario = document.querySelector("#formulario");
   document.addEventListener("DOMContentLoaded", () => {
     conectarDB();
+
+    //actualizar datos del cliente
+    formulario.addEventListener("submit", actualizarCliente);
+
     // verificar el ID de la URL
     const parametrosURL = new URLSearchParams(window.location.search);
 
@@ -18,6 +24,24 @@
       }, 100);
     }
   });
+  // actualizar los datos del cliente
+  function actualizarCliente(e) {
+    e.preventDefault();
+
+    if (
+      nombreInput.value === "" ||
+      emailInput.value === "" ||
+      empresaInput.value === "" ||
+      telefonoInput.value === ""
+    ) {
+      console.log("hubo error");
+
+      return;
+    }
+
+    console.log("actualizando");
+  }
+
   // comparar ID y traer los datos
   function obtenerCliente(id) {
     const transaction = DB.transaction(["crm"], "readwrite");
