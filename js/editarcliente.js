@@ -1,5 +1,10 @@
 (function () {
   let DB;
+
+  const nombreInput = document.querySelector("#nombre");
+  const emailInput = document.querySelector("#email");
+  const telefonoInput = document.querySelector("#telefono");
+  const empresaInput = document.querySelector("#empresa");
   document.addEventListener("DOMContentLoaded", () => {
     conectarDB();
     // verificar el ID de la URL
@@ -31,6 +36,17 @@
       }
     };
   }
+
+  //cargamos los datos obtenidos en el formulario
+  function llenarFormulario(datosCliente) {
+    const { nombre, telefono, email, empresa } = datosCliente;
+
+    nombreInput.value = nombre;
+    telefonoInput.value = telefono;
+    emailInput.value = email;
+    empresaInput.value = empresa;
+  }
+
   //conectamos a nuestra DB
   function conectarDB() {
     const abrirConexion = window.indexedDB.open("crm", 1);
