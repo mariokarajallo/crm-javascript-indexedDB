@@ -1,4 +1,5 @@
 (function () {
+  let idCliente;
   const nombreInput = document.querySelector("#nombre");
   const emailInput = document.querySelector("#email");
   const telefonoInput = document.querySelector("#telefono");
@@ -14,7 +15,7 @@
     // verificar el ID de la URL
     const parametrosURL = new URLSearchParams(window.location.search);
 
-    const idCliente = parametrosURL.get("id");
+    idCliente = parametrosURL.get("id");
 
     if (idCliente) {
       setTimeout(() => {
@@ -32,12 +33,37 @@
       empresaInput.value === "" ||
       telefonoInput.value === ""
     ) {
-      console.log("hubo error");
+      imprimirAlerta("todos los campos son obligatorios", "error");
 
       return;
     }
 
-    console.log("actualizando");
+    // actualizar el cliente
+    const clienteActualido = {
+      nombre: nombreInput.value,
+      email: emailInput.value,
+      empresa: empresaInput.value,
+      telefono: telefonoInput.value,
+      id: Number(idCliente),
+    };
+
+    // transastion
+    const transaction = DB.transaction(["crm"], "readwrite");
+    const objectStore = transaction.objectStore("crm");
+
+    objectStore.put(clienteActualido);
+
+    transaction.onerror = function () {
+      imprimirAlerta("Hubo un error en la actualizacion", "error");
+    };
+
+    transaction.oncomplete = function () {
+      imprimirAlerta("Editado correctamente");
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 3000);
+    };
   }
 
   // comparar ID y traer los datos
