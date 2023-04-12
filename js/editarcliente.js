@@ -1,6 +1,4 @@
 (function () {
-  let DB;
-
   const nombreInput = document.querySelector("#nombre");
   const emailInput = document.querySelector("#email");
   const telefonoInput = document.querySelector("#telefono");
@@ -69,18 +67,5 @@
     telefonoInput.value = telefono;
     emailInput.value = email;
     empresaInput.value = empresa;
-  }
-
-  //conectamos a nuestra DB
-  function conectarDB() {
-    const abrirConexion = window.indexedDB.open("crm", 1);
-
-    abrirConexion.onerror = function () {
-      console.log("hubo un error al conectar con la base de datos");
-    };
-
-    abrirConexion.onsuccess = function () {
-      DB = abrirConexion.result;
-    };
   }
 })();

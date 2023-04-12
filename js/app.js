@@ -1,7 +1,5 @@
 // creamos un IIFE (iffy pronunciacion), es como una burbuja que contiene todas las variables y funciones definidas dentro de ella y no permite que se filtren al ámbito global (global scope).
 (function () {
-  let DB;
-
   // antes que nada cargamos todo el contenido primero
   document.addEventListener("DOMContentLoaded", () => {
     crearDB();
